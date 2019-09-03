@@ -1,99 +1,47 @@
 // In this file you can specify the trial data for your experiment
 const utt_prenominal_demonstr = {utterance1b: "That's a big ",  utterance1s: "That's a small ",  condition: "referential_demonstrative"}
 const utt_prenominal_pronoun = {utterance1b: "It's a big ", utterance1s: "It's a small ",  condition:"referential_pronoun"}
-// const size = function () {
-//   return _.sample([0,1])
-// }
 
 const utterance = _.shuffle([utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_pronoun,utt_prenominal_pronoun,utt_prenominal_pronoun]);
-const target_size = _.shuffle([0,0,0,1,1,1])
-//const referent = _.shuffle([0,0,0,1,1,1])
-//const picture = _.shuffle([0,0,0,1,1,1])
 
 const items = {
-  dogs1: [
-    {referent: "doberman",
+  dogs1:     {referent: "doberman",
      utterance1: utterance[0].utterance1b,
      picture: "images/dog-parade-basic.png",
      target: "warmup/doberman.png",
      adj: "big"
    },
-   {referent: "chihuahua",
-    utterance1: utterance[0].utterance1s,
-    picture: "images/dog-parade-basic.png",
-    target: "warmup/chihuahua.jpg",
-    adj: "small"
-   }
-  ],
-  dogs2: [
-    {referent: "great dane",
+  dogs2:     {referent: "great dane",
      utterance1: utterance[1].utterance1b,
      picture: "images/dog-parade-basic2.png",
      target: "warmup/great-dane.jpg",
      adj: "big"
    },
-   {referent: "pug",
-    utterance1: utterance[1].utterance1s,
-    picture: "images/dog-parade-basic2.png",
-    target: "warmup/pug.jpg",
-    adj: "small"
-   }
-  ],
-  birds: [
-    {referent: "eagle",
+
+  birds:    {referent: "eagle",
      utterance1: utterance[2].utterance1b,
      picture: "images/bird-parade-basic.png",
      target: "warmup/eagle.jpg",
      adj: "big"
    },
-   {referent: "hummingbird",
-    utterance1: utterance[2].utterance1s,
-    picture: "images/bird-parade-basic.png",
-    target: "warmup/colibri.jpg",
-    adj: "small"
-   }
-  ],
-  fish: [
-    {referent: "swordfish",
+  fish:     {referent: "swordfish",
      utterance1: utterance[3].utterance1b,
      picture: "images/fish-parade-basic.png",
      target: "warmup/swordfish.jpg",
      adj: "big"
    },
-   {referent: "goldfish",
-    utterance1: utterance[3].utterance1s,
-    picture: "images/fish-parade-basic.png",
-    target: "warmup/goldfish.png",
-    adj: "small"
-   }
-  ],
-  flowers: [
-  {referent: "sunflower",
+  flowers:  {referent: "sunflower",
    utterance1: utterance[4].utterance1b,
    picture: "images/flower-parade-basic.png",
    target: "warmup/sunflower.png",
    adj: "big"
  },
- {referent: "dandelion",
-  utterance1: utterance[4].utterance1s,
-  picture: "images/flower-parade-basic.png",
-  target: "warmup/dandelion.jpg",
-  adj: "small"
- }],
-  trees: [
-    {referent: "redwood",
+  trees:     {referent: "redwood",
      utterance1: utterance[5].utterance1b,
      picture: "images/tree-parade-basic.png",
      target: "warmup/sequoia.jpg",
      adj: "big"
-   },
-   {referent: "bonsai",
-    utterance1: utterance[5].utterance1s,
-    picture: "images/tree-parade-basic.png",
-    target: "warmup/bonsai.jpg",
-    adj: "small"
    }
-  ]
 }
 
 
@@ -103,82 +51,82 @@ const items = {
 const main_trials = {
     dogs1:   {
             context: "You and your friend see the following:",
-            context_picture: items.dogs1[target_size[0]].picture,
+            context_picture: items.dogs1.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group." ,
-            target: items.dogs1[target_size[0]].target,
+            target: items.dogs1.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.dogs1[target_size[0]].utterance1,
+            sentence_left: items.dogs1.utterance1,
             item: "dogs1",
             // if 0: big, if 1 small
-            target_size: items.dogs1[target_size[0]].adj,
+            target_size: items.dogs1.adj,
             condition: utterance[0].condition,
-            pic_spec: items.dogs1[target_size[0]].referent
+            pic_spec: items.dogs1.referent
 
 
         },
     dogs2:    {
             context: "You and your friend see the following:",
-            context_picture: items.dogs2[target_size[1]].picture,
+            context_picture: items.dogs2.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group.",
-            target: items.dogs2[target_size[1]].target,
+            target: items.dogs2.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.dogs2[target_size[1]].utterance1,
+            sentence_left: items.dogs2.utterance1,
             item: "dogs2",
-            target_size: items.dogs2[target_size[1]].adj,
+            target_size: items.dogs2.adj,
             condition: utterance[1].condition,
-            pic_spec: items.dogs2[target_size[1]].referent
+            pic_spec: items.dogs2.referent
 
         },
     birds:    {
             context: "You and your friend see the following:",
-            context_picture: items.birds[target_size[2]].picture,
+            context_picture: items.birds.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group." ,
-            target: items.birds[target_size[2]].target,
+            target: items.birds.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.birds[target_size[2]].utterance1,
+            sentence_left: items.birds.utterance1,
             item: "birds",
-            target_size: items.birds[target_size[2]].adj,
+            target_size: items.birds.adj,
             condition: utterance[2].condition,
-            pic_spec: items.birds[target_size[2]].referent
+            pic_spec: items.birds.referent
 
         },
   fish:      {
             context: "You and your friend see the following:",
-            context_picture: items.fish[target_size[3]].picture,
+            context_picture: items.fish.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group." ,
-            target: items.fish[target_size[3]].target,
+            target: items.fish.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.fish[target_size[3]].utterance1,
+            sentence_left: items.fish.utterance1,
             item: "fish",
-            target_size: items.fish[target_size[3]].adj,
+            target_size: items.fish.adj,
             condition: utterance[3].condition,
-            pic_spec: items.fish[target_size[3]].referent
+            pic_spec: items.fish.referent
 
         },
   flowers:      {
             context: "You and your friend see the following:",
-            context_picture: items.flowers[target_size[4]].picture,
+            context_picture: items.flowers.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group." ,
-            target: items.flowers[target_size[4]].target,
+            target: items.flowers.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.flowers[target_size[4]].utterance1,
+            sentence_left: items.flowers.utterance1,
             item: "flowers",
-            target_size: items.flowers[target_size[4]].adj,
+            target_size: items.flowers.adj,
             condition: utterance[4].condition,
-            pic_spec: items.flowers[target_size[4]].referent
+            pic_spec: items.flowers.referent
 
         },
     trees:    {
             context: "You and your friend see the following:",
-            context_picture: items.trees[target_size[5]].picture,
+            context_picture: items.trees.picture,
             text: "Your friend looks away and <b>only you</b> see another member of the group." ,
-            target: items.trees[target_size[5]].target,
+            target: items.trees.target,
             question: "<b>You say to your friend: </b>",
-            sentence_left: items.trees[target_size[5]].utterance1,
+            sentence_left: items.trees.utterance1,
             item: "trees",
-            target_size: items.trees[target_size[5]].adj,
+            target_size: items.trees.adj,
             condition: utterance[5].condition,
-            pic_spec: items.trees[target_size[5]].referent
+            pic_spec: items.trees.referent
 
         }
 };
