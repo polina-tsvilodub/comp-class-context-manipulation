@@ -196,7 +196,7 @@ fish: {
 
 trees: {
   item: "trees",
-  picture1: "warmup/sequoia.jpg",
+  picture1: "warmup/sequoia.png",
   picture2: "warmup/bonsai.jpg",
   correct1: ["redwood", "sequoia"],
   correct2: ["bonsai"],
