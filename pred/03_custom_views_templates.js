@@ -91,6 +91,8 @@ const custom_forced_choice = function(config, startingTime) {
     trials: config.trials,
     render: function(CT, magpie, startingTime) {
       $("main").html(`<div class='magpie-view'>
+      <link rel="preload" href="${config.data[CT].context_picture}" as="image">
+      <link rel="preload" href="${config.data[CT].target}" as="image">
       <section class="magpie-text-container">
         <p class="magpie-view-question">${config.data[CT].context}</p>
       </section>
@@ -164,6 +166,8 @@ const custom_textfield_warmup = function(config, startingTime) {
     trials: config.trials,
     render: function(CT, magpie, startingTime) {
       $("main").html(`<div class='magpie-view'>
+      <link rel="preload" href="${config.data[CT].picture1}" as="image">
+      <link rel="preload" href="${config.data[CT].picture2}" as="image">
       <h1 class='magpie-view-title'>Warm-up trials</h1>
       <section class="magpie-text-container">
         <p class="magpie-view-question">${config.data[CT].text}</p>
