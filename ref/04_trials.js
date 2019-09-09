@@ -39,7 +39,7 @@ const items = {
   trees:     {referent: "redwood",
      utterance1: utterance[5].utterance1b,
      picture: "images/tree-parade-basic.png",
-     target: "warmup/sequoia.jpg",
+     target: "warmup/sequoia.png",
      adj: "big"
    }
 }
