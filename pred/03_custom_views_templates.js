@@ -1,4 +1,87 @@
 // In this file you can create your own custom view templates
+const compensation_trial  = function(config){
+  const view = {
+    name: config.name,
+    CT: 0,
+    trials: config.trials,
+    render: function(CT, magpie) {
+      $("main").html(`<div class="magpie-view">
+        <h1 class='magpie-view-title'>THIS HIT IS FOR A SPECIFIC WORKER!</h1>
+        <br />
+        <section class="magpie-text-container" align="center">
+        <div>
+
+        <p>If you have not communicated with me via email, then this HIT is *NOT* for you. Please do not try it.</p>
+        <p>If we have communicated about this HIT, please enter the passcode here: <input type="text" id="password"></input></p>
+        <p id="err">WRONG!! This HIT is not for you. Please go do a different HIT.</p>
+        <p id="thank_you">thank you! </p>
+        <button id="next">Submit</button>
+        </div>
+        </section>
+
+        `);
+// don't allow to press enter in the response field
+        $('#listener-response').keypress(function(event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+            }
+        });
+        let next = $("#next");
+        // don't show any error message
+        $("#err").hide();
+        $("#thank_you").hide();
+
+        $("#next").on("click", function() {
+          var pw = $("#password").val();
+          if (pw.toLowerCase() == "frodo lives") {
+
+            $("#thank_you").show();
+            magpie.global_data.botresponse = $("#password").val();
+            magpie.findNextView();
+          } else {
+            $("#err").show();
+          }
+        })
+
+
+
+
+
+        // amount of trials to enter correct response
+        var trial = 0;
+
+        // $("#next").on("click", function() {
+        //     response = $("#listener-response").val().replace(" ","");
+        //
+        //     // response correct
+        //     if (listener.toLowerCase() == response.toLowerCase()) {
+        //
+        //     // response false
+        //     } else {
+        //         trial = trial + 1;
+        //         $("#error_incorrect").show();
+        //         if (trial == 1) {
+        //             $("#error_2more").show();
+        //         } else if (trial == 2) {
+        //             $("#error_2more").hide();
+        //             $("#error_1more").show();
+        //         } else {
+        //             $("#error_incorrect").hide();
+        //             $("#error_1more").hide();
+        //             $("#next").hide();
+        //         //    $('#quest-response').css("opacity", "0.2");
+        //             $('#listener-response').prop("disabled", true);
+        //             $("#error").show();
+        //         };
+        //     };
+        //
+        // });
+
+    }
+  };
+  return view;
+};
+
 
 const custom_botcaptcha = function(config){
   const view = {
@@ -357,86 +440,25 @@ const custom_post_test_view = function(config) {
           let startingTime;
           const viewTemplate = `
           <div class="magpie-post-test-view">
-              <h1 class="magpie-view-title">${this.title}</h1>
+              <h1 class="magpie-view-title">Thanks!</h1>
               <section class="text-container">
-                  <h4 style = "text-align:center;">${this.text}</p>
+                  <h4 style = "text-align:center;">Please click 'Submit'</p>
+                  <button id="next">Submit</button>
               </section>
-              <form style = "margin-top:-50px">
-              <p class = "magpie-view-text" >
-              <label for="understand">Did you read the instructions and do you think you completed the experiment correctly?</label>
-              <select id="understand" name="understand">
-                  <option></option>
-                  <option value="yes" >Yes</option>
-                  <option value="no">No</option>
-                  <option value="confused">I was confused</option>
-              </select>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="age">Age:</label>
-              <input type="number" name="age" min="18" max="110" id="age" />
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="sex">Sex:</label>
-              <select id="sex" name="sex">
-                  <option></option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-              </select>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="education">Level of Education:</label>
-              <select id="education" name="education">
-                  <option></option>
-                  <option value="some_high_school">Some High School</option>
-                  <option value="graduated_high_school">Graduated High School</option>
-                  <option value="some_college">Some College</option>
-                  <option value="graduated_college">Graduated College</option>
-                  <option value="higher_degree">Higher Degree</option>
-              </select>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
-              <input type="text" id="languages"/>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="enjoyment">Did you enjoy the experiment?</label>
-              <select id="enjoyment" name="enjoyment">
-                  <option></option>
-                  <option value="0">Worse than the Average Experiment</option>
-                  <option value="1" >An Average Experiment</option>
-                  <option value="2">Better than average Experiment</option>
-              </select>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="fairprice">What do you think is a fair price for the work you did?</label>
-              <input type="number" name="fairprice" min="0" max="100" id="fairprice" step="0.01"/>
-          </p>
-          <p class = "magpie-view-text" >
-              <label for="problems">Were there any problems or glitches in the experiment?</label>
-              <textarea id="problems" rows="2" cols="50"></textarea>
-          </p>
-          <p class = "magpie-view-text"  class="comment-sect">
-              <label for="comments">Further comments</label>
-              <textarea name="comments" id="comments"
-              rows="6" cols="40"></textarea>
-          </p>
-              <button class = "magpie-view-button" id="next">Finish</button>
-              </form>
               </div>
           `;
           $("#main").html(viewTemplate);
           let next = $("#next");
           next.on("click", function() {
-            magpie.global_data.understand = $("#understand").val();
-            magpie.global_data.age = $("#age").val();
-            magpie.global_data.sex = $("#sex").val();
-            magpie.global_data.education = $("#education").val();
-            magpie.global_data.languages = $("#languages").val();
-            magpie.global_data.enjoyment = $("#enjoyment").val();
-            magpie.global_data.problems = $("#problems").val().trim();
-            magpie.global_data.fairprice = $("#fairprice").val();
-            magpie.global_data.comments = $("#comments").val().trim();
+            // magpie.global_data.understand = $("#understand").val();
+            // magpie.global_data.age = $("#age").val();
+            // magpie.global_data.sex = $("#sex").val();
+            // magpie.global_data.education = $("#education").val();
+            // magpie.global_data.languages = $("#languages").val();
+            // magpie.global_data.enjoyment = $("#enjoyment").val();
+            // magpie.global_data.problems = $("#problems").val().trim();
+            // magpie.global_data.fairprice = $("#fairprice").val();
+            // magpie.global_data.comments = $("#comments").val().trim();
             magpie.findNextView();
           });
           startingTime = Date.now();

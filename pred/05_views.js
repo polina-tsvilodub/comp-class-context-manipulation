@@ -66,7 +66,10 @@ const instructions = magpieViews.view_generator("instructions", {
   // languages_question: 'Muttersprache',
   // languages_more: '(in der Regel die Sprache, die Sie als Kind zu Hause gesprochen haben)',
   // comments_question: 'Weitere Kommentare'
-
+const compensation = compensation_trial({
+  name: 'compensation',
+  trials: 1
+});
 
 // The 'thanks' view is crucial; never delete it; it submits the results!
 const thanks = magpieViews.view_generator("thanks", {

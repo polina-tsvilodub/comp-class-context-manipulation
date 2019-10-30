@@ -15,15 +15,16 @@ $("document").ready(function() {
     window.magpie_monitor = magpieInit({
         // You have to specify all views you want to use in this experiment and the order of them
         views_seq: [
-            custom_intro,
+            compensation,
+            // custom_intro,
             // botcaptcha,
             // instructions,
             // warmup1,
-            context1,
-            custom_main_text1,
-            context2,
-            warmup2,
-            custom_main_text2,
+            // context1,
+            // custom_main_text1,
+            // context2,
+            // warmup2,
+            // custom_main_text2,
             custom_post_test,
             thanks,
         ],
@@ -34,7 +35,7 @@ $("document").ready(function() {
             // Possible deployment methods are:
             // "debug" and "directLink"
             // As well as "MTurk", "MTurkSandbox" and "Prolific"
-            deployMethod: "debug",
+            deployMethod: "MTurkSandbox",
             contact_email: "polinats@mit.edu",
             prolificURL: "https://app.prolific.ac/submissions/complete?cc=SAMPLE1234"
         },
