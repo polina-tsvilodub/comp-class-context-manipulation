@@ -12,7 +12,7 @@ const compensation_trial  = function(config){
         <div>
 
         <p>If you have not communicated with me via email, then this HIT is *NOT* for you. Please do not try it.</p>
-        <p>If we have communicated about this HIT, please enter the passcode here: <input type="text" id="password"></input></p>
+        <p>If we have communicated about this HIT, please enter the passcode here: <textarea rows="1" cols="15" name="pw" id="password"></textarea>
         <p id="err">WRONG!! This HIT is not for you. Please go do a different HIT.</p>
         <p id="thank_you">thank you! </p>
         <button id="next">Submit</button>
@@ -21,22 +21,30 @@ const compensation_trial  = function(config){
 
         `);
 // don't allow to press enter in the response field
-        $('#listener-response').keypress(function(event) {
-            if (event.keyCode == 13) {
-                event.preventDefault();
-            }
-        });
+        // $('#listener-response').keypress(function(event) {
+        //     if (event.keyCode == 13) {
+        //         event.preventDefault();
+        //     }
+        // });
         let next = $("#next");
         // don't show any error message
         $("#err").hide();
         $("#thank_you").hide();
 
         $("#next").on("click", function() {
-          var pw = $("#password").val();
-          if (pw.toLowerCase() == "frodo lives") {
+          var pass = $("#password").val();
+          if (pass.toLowerCase() == "frodo lives") {
 
             $("#thank_you").show();
-            magpie.global_data.botresponse = $("#password").val();
+            let trial_data = {
+              trial_name: 'compensation',
+              trial_number: CT + 1,
+              response: pass
+            }
+            // magpie.global_data.pw = $("#password").val();
+            // trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
+
+            magpie.trial_data.push(trial_data);
             magpie.findNextView();
           } else {
             $("#err").show();
