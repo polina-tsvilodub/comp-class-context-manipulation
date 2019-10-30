@@ -30,7 +30,7 @@ $("document").ready(function() {
         ],
         // Here, you can specify all information for the deployment
         deploy: {
-            experimentID: "3",
+            experimentID: "21",
             serverAppURL: "https://pragmatics-ptb.herokuapp.com/api/submit_experiment/",
             // Possible deployment methods are:
             // "debug" and "directLink"
@@ -40,7 +40,7 @@ $("document").ready(function() {
             prolificURL: "https://app.prolific.ac/submissions/complete?cc=SAMPLE1234"
         },
 
-        uniqueTurkerID:  '0e8b1d8dfda437c9dfeff65c57c17e40',
+        uniqueTurkerID:  'e8200523c7f8fc0f9b04252be424529b',
         // Here, you can specify how the progress bar should look like
         progress_bar: {
             in: [
