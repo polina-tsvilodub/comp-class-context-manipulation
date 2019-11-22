@@ -21,7 +21,7 @@ const items = {
    {referent: ["dog","chihuahua", "one"],
     utterance1: utterance.utterance1s,
     utterance2: utterance.utterance2s,
-    picture: [{pic: "ref-utility/dog-parade-basic.png", adj: "small ", condition: "basic"}, {pic: "ref-utilitychihuahuas-5-6.png", adj: "small ", condition: "congr"}, {pic: "ref-utility/dog-parade-chihuahua.png", adj: "big", condition: "incongr"} ],
+    picture: [{pic: "ref-utility/dog-parade-basic.png", adj: "small ", condition: "basic"}, {pic: "ref-utility/chihuahuas-5-6.png", adj: "small ", condition: "congr"}, {pic: "ref-utility/dog-parade-chihuahua.png", adj: "big", condition: "incongr"} ],
     target: "warmup/chihuahua.png"
 
    }
