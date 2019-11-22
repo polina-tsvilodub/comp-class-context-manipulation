@@ -39,7 +39,7 @@ $("document").ready(function() {
             prolificURL: "https://app.prolific.ac/submissions/complete?cc=SAMPLE1234"
         },
 
-        uniqueTurkerID:  '6a6a0fb148ff1745da8f7c153ab91faf'',
+        uniqueTurkerID:  '6a6a0fb148ff1745da8f7c153ab91faf',
         // Here, you can specify how the progress bar should look like
         progress_bar: {
             in: [
