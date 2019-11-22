@@ -15,22 +15,22 @@ $("document").ready(function() {
     window.magpie_monitor = magpieInit({
         // You have to specify all views you want to use in this experiment and the order of them
         views_seq: [
-            compensation,
-            // custom_intro,
-            // botcaptcha,
-            // instructions,
-            // warmup1,
-            // context1,
-            // custom_main_text1,
-            // context2,
-            // warmup2,
-            // custom_main_text2,
+            // compensation,
+            custom_intro,
+            botcaptcha,
+            instructions,
+            warmup1,
+            context1,
+            custom_main_text1,
+            context2,
+            warmup2,
+            custom_main_text2,
             custom_post_test,
             thanks,
         ],
         // Here, you can specify all information for the deployment
         deploy: {
-            experimentID: "21",
+            experimentID: "23",
             serverAppURL: "https://pragmatics-ptb.herokuapp.com/api/submit_experiment/",
             // Possible deployment methods are:
             // "debug" and "directLink"
@@ -40,7 +40,7 @@ $("document").ready(function() {
             prolificURL: "https://app.prolific.ac/submissions/complete?cc=SAMPLE1234"
         },
 
-        uniqueTurkerID:  'e8200523c7f8fc0f9b04252be424529b',
+        uniqueTurkerID:  '6a6a0fb148ff1745da8f7c153ab91faf',
         // Here, you can specify how the progress bar should look like
         progress_bar: {
             in: [

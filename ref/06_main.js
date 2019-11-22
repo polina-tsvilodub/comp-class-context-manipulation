@@ -16,9 +16,9 @@ $("document").ready(function() {
         // You have to specify all views you want to use in this experiment and the order of them
         views_seq: [
             custom_intro,
-            // botcaptcha,
-            // instructions,
-            // warmup1,
+            botcaptcha,
+            instructions,
+            warmup1,
             context1,
             custom_main_text1,
             context2,
@@ -29,17 +29,17 @@ $("document").ready(function() {
         ],
         // Here, you can specify all information for the deployment
         deploy: {
-            experimentID: "11",
+            experimentID: "24",
             serverAppURL: "https://pragmatics-ptb.herokuapp.com/api/submit_experiment/",
             // Possible deployment methods are:
             // "debug" and "directLink"
             // As well as "MTurk", "MTurkSandbox" and "Prolific"
-            deployMethod: "debug",
+            deployMethod: "MTurkSandbox",
             contact_email: "polinats@mit.edu",
             prolificURL: "https://app.prolific.ac/submissions/complete?cc=SAMPLE1234"
         },
 
-        uniqueTurkerID:  '0e8b1d8dfda437c9dfeff65c57c17e40',
+        uniqueTurkerID:  '6a6a0fb148ff1745da8f7c153ab91faf'',
         // Here, you can specify how the progress bar should look like
         progress_bar: {
             in: [

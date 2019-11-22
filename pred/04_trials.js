@@ -3,43 +3,43 @@ const utt_prenominal_demonstr = {utterance1b: "That's a big ",  utterance1s: "Th
 const utt_prenominal_pronoun = {utterance1b: "It's a big ", utterance1s: "It's a small ",  condition:"predicative_pronoun"}
 
 
-const utterance = _.shuffle([utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_pronoun,utt_prenominal_pronoun,utt_prenominal_pronoun]);
+const utterance = _.shuffle([utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr,utt_prenominal_demonstr]);
 const context = _.shuffle([0, 0, 0, 1, 1, 1]);
 const items = {
   dogs1:     {referent: "doberman",
      utterance1: utterance[0].utterance1b,
-     picture: ["images/dog-parade-basic.png", "images/dog-parade-doberman.png"],
+     picture: ["ref-utility/doberman-5-6.png"ref-utoility, "images/dog-parade-doberman.png"],
      target: "warmup/doberman.png",
      adj: "big"
    },
   dogs2:   {referent: "great dane",
      utterance1: utterance[1].utterance1b,
-     picture: ["images/dog-parade-basic2.png", "images/dog-parade-great-dane.png"],
+     picture: ["ref-utility/great-danes-5-6.png", "images/dog-parade-great-dane.png"],
      target: "warmup/great-dane.jpg",
      adj: "big"
    },
 
   birds:   {referent: "eagle",
      utterance1: utterance[2].utterance1b,
-     picture: ["images/bird-parade-basic.png", "images/bird-parade-eagle.png"],
+     picture: ["ref-utility/eagles-5-6.png", "images/bird-parade-eagle.png"],
      target: "warmup/eagle.jpg",
      adj: "big"
    },
   fish:    {referent: "swordfish",
      utterance1: utterance[3].utterance1b,
-     picture: ["images/fish-parade-basic.png", "images/fish-parade-swordfish.png"],
+     picture: ["ref-utility/swordfish-5-6.png", "images/fish-parade-swordfish.png"],
      target: "warmup/swordfish.jpg",
      adj: "big"
    },
   flowers:  {referent: "sunflower",
    utterance1: utterance[4].utterance1b,
-   picture: ["images/flower-parade-basic.png", "images/flower-parade-sunflower.png"],
+   picture: ["ref-utility/sunflowers-5-6.png", "images/flower-parade-sunflower.png"],
    target: "warmup/sunflower.png",
    adj: "big"
  },
   trees:    {referent: "redwood",
      utterance1: utterance[5].utterance1b,
-     picture: ["images/tree-parade-basic.png","images/tree-parade-redwood.png"],
+     picture: ["ref-utility/redwoods-5-6.png","images/tree-parade-redwood.png"],
      target: "warmup/sequoia.png",
      adj: "big"
    }
