@@ -193,12 +193,12 @@ const custom_forced_choice = function(config, startingTime) {
       <section class="magpie-text-container">
         <p class="magpie-view-question">${config.data[CT].text}</p>
       </section>
-      <section class="magpie-text-container">
-        <p class="magpie-view-question">${config.data[CT].utterance}</p>
-      </section>
       <div class="picture" align="center">
         <img src="${config.data[CT].target}" >
       </div>
+      <section class="magpie-text-container">
+        <p class="magpie-view-question">${config.data[CT].utterance}</p>
+      </section>
       <section class="magpie-text-container">
         <p class="magpie-view-question">${config.data[CT].question}</p>
       </section>
