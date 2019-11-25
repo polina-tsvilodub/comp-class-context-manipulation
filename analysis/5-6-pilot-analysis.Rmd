@@ -1,0 +1,151 @@
+---
+title: "Referential Utility Manipulation"
+author: "Polina Tsvilodub"
+date: "22 11 2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries}
+library(tidyverse)
+library(tidyboot)
+
+```
+
+
+```{r data}
+df <- rbind( read_csv('../data/results_24_ref-utility-5-6-prenom_cleaned.csv'),
+                    read_csv('../data/results_23_ref-utility-5-6-pred_cleaned.csv') )
+df.pred <- rbind( read_csv('../data/results_23_ref-utility-5-6-pred_second_cleaned.csv'),
+                  read_csv('../data/results_23_ref-utility-5-6-pred_cleaned.csv'))
+df.pred.old <- read_csv('../data/results_17_inf-pred-sub_clean.csv') %>%  
+  select(submission_id, question, response1, sentence_left, context_picture, experiment_id, picture2, correct1, question1, problems, enjoyment, item, botresponse, correct2, pic_spec, understand, text, condition, pic, age, response, comments, ref_spec, picture1, response3, education, target_size, languages, sex, RT, correct3, context, trial_number, startTime, attempts, question3, fairprice, question2, response2, adj_cond, trial_name, utterance) %>%
+rbind(., read_csv('../data/results_25_pred-sub-ref-2-6_cleaned.csv'))
+
+df.full.pred <- df.pred %>% select(submission_id, question, response1, sentence_left, context_picture, experiment_id, picture2, correct1, question1, problems, enjoyment, item, botresponse, correct2, pic_spec, understand, text, condition, pic = target, age, response, comments, ref_spec, picture1, response3, education, target_size, languages, sex, RT, correct3, context, trial_number, startTime, attempts, question3, fairprice, question2, response2, adj_cond, trial_name, utterance) %>% rbind(., df.pred.old)
+
+df.full_context <- rbind( read_csv('../data/results_20_inf-prenom-sub_clean.csv'),
+                          read_csv('../data/results_17_inf-pred-sub_clean.csv'))
+```
+
+``` {r cleaning}
+#df.oldfull <- read_csv('../data/results_25_pred-sub-ref-2-6.csv')
+#df.oldfull %>% select(submission_id, question, response1, sentence_left, context_picture, experiment_id, picture2, correct1, question1, problems, enjoyment, item, botresponse, correct2, pic_spec, understand, text, condition, pic, age, response, comments, ref_spec, picture1, response3, education, target_size, languages, sex, RT, correct3, context, trial_number, startTime, attempts, question3, fairprice, question2, response2, adj_cond, trial_name, utterance ) %>% write_csv('../data/results_25_pred-sub-ref-2-6_cleaned.csv')
+```
+
+``` {r categorization}
+df.full.clean <- df.full_context %>% filter((trial_name == "custom_main_text1") | (trial_name == "custom_main_text2")) %>% select(context_picture, experiment_id, problems, item, pic_spec, text, condition, target = pic, response, comments, ref_spec, target_size, languages, context, trial_number, attempts, adj_cond, trial_name, utterance) %>%
+  mutate(reference = ifelse(pic_spec == 0, "two / six", "six / six"))
+df.clean <- df %>% select(context_picture, experiment_id, problems, item, pic_spec, text, condition, target, response, comments, ref_spec, target_size, languages, context, trial_number, attempts, adj_cond, trial_name, utterance) %>% 
+  filter(grepl("en", languages, ignore.case = T))
+df.main <- df.clean %>% filter((trial_name == "custom_main_text1") | (trial_name == "custom_main_text2") ) %>% mutate(reference = "five / six")
+df.joint <- rbind(df.full.clean, df.main)
+
+
+d.main.respCat <- df.joint %>%
+  subset(., !(response %in% c("salmon", "roses", "perspective"))) %>%
+  rowwise() %>%
+  mutate(
+    response_cat = ifelse(
+      tolower(response) %in% c("tree", "trees", "fish", "fisg", "fishes", "dog", "dogs", "smaller dogs", "flower","flowers", "bird", "birds",
+                               "weeds", "trees in general"), "basic", "sub"
+    ),
+    response_num = ifelse(response_cat == "basic", 1, 0),
+    response_label = "basic"
+  )
+```
+
+
+``` {r categorization second batch}
+# data set after replication with 40 more participants
+df.pred.old.clean <- df.pred.old %>% filter((trial_name == "custom_main_text1") | (trial_name == "custom_main_text2")) %>% select(context_picture, experiment_id, problems, item, pic_spec, text, condition, target = pic, response, comments, ref_spec, target_size, languages, context, trial_number, attempts, adj_cond, trial_name, utterance) %>%
+  mutate(reference = ifelse(pic_spec == 0, "two / six", "six / six"))
+df.pred.clean <- df.pred %>% select(context_picture, experiment_id, problems, item, pic_spec, text, condition, target, response, comments, ref_spec, target_size, languages, context, trial_number, attempts, adj_cond, trial_name, utterance) %>% 
+  filter(grepl("en", languages, ignore.case = T))
+df.main.pred <- df.pred.clean %>% filter((trial_name == "custom_main_text1") | (trial_name == "custom_main_text2") ) %>% mutate(reference = "five / six")
+df.joint.pred <- rbind(df.pred.old.clean, df.main.pred)
+
+
+d.main.pred.respCat <- df.joint.pred %>%
+  subset(., !(response %in% c("salmon", "roses", "perspective", "size", "the crow", "poodle" ))) %>%
+  rowwise() %>%
+  mutate(
+    response_cat = ifelse(
+      tolower(response) %in% c("tree", "trees", "fish", "fisg", "fishes", "dog", "dogs","other dogs", "smaller dogs", "flower","flowers","the other flowers",
+                               "bird", "birds", "other birds",
+                               "weeds", "trees in general"), "basic", "sub"
+    ),
+    response_num = ifelse(response_cat == "basic", 1, 0),
+    response_label = "basic"
+  )
+```
+
+
+``` {r plot}
+bar.width = 0.8
+d.main.respCat %>%  
+  group_by(response_label, reference, condition) %>%
+  tidyboot_mean(column = response_num) %>% ungroup() %>% 
+  mutate(condition = factor(condition, levels = c("prenominal",  "predicative"), 
+                            labels = c("Predicate",  "Subject")),
+         sub_distractors = factor(reference, levels = c("two / six", "five / six", "six / six") )) %>%
+  ggplot(aes(x=condition, y = mean, fill = sub_distractors, ymin = ci_lower, ymax = ci_upper)) +
+  geom_col(position = position_dodge(bar.width), width = bar.width) +
+  geom_linerange(position = position_dodge(bar.width)) + 
+  xlab("NP condition") +
+  ylab("proportion of basic-level responses") +
+  ggtitle("Proportion of basic-level responses given subordinate NP in different contexts")
+  #facet_grid(~reference) 
+```
+
+``` {r plot second batch}
+bar.width = 0.8
+d.main.pred.respCat %>%  
+  group_by(response_label, reference, condition) %>%
+  tidyboot_mean(column = response_num) %>% ungroup() %>% 
+  mutate(condition = factor(condition, levels = c("prenominal",  "predicative"), 
+                            labels = c("Predicate",  "Subject")),
+         sub_distractors = factor(reference, levels = c("two / six", "five / six", "six / six") )) %>%
+  ggplot(aes(x=condition, y = mean, fill = sub_distractors, ymin = ci_lower, ymax = ci_upper)) +
+  geom_col(position = position_dodge(bar.width), width = bar.width) +
+  geom_linerange(position = position_dodge(bar.width)) + 
+  xlab("NP condition") +
+  ylab("proportion of basic-level responses") +
+  ggtitle("Proportion of basic-level responses given subordinate NP in different contexts")
+  #facet_grid(~reference) 
+```
+
+
+``` {r}
+d.main.respCat.target <- d.main.respCat %>%  
+  mutate(target = gsub("warmup/", "", target),
+         target = gsub("images/", "", target))
+bar.width = 0.8
+d.main.respCat.target %>%  
+  group_by(response_label, reference, condition, target) %>%
+  tidyboot_mean(column = response_num) %>% ungroup() %>% 
+  mutate(condition = factor(condition, levels = c("prenominal",  "predicative"), 
+                            labels = c("Predicate",  "Subject")),
+         sub_distractors = factor(reference, levels = c("two / six", "five / six", "six / six") )) %>%
+  ggplot(aes(x=condition, y = mean, fill = sub_distractors, ymin = ci_lower, ymax = ci_upper)) +
+  geom_col(position = position_dodge(bar.width), width = bar.width) +
+  geom_linerange(position = position_dodge(bar.width)) + 
+  xlab("NP condition") +
+  ylab("proportion of basic-level responses") +
+  ggtitle("Proportion of basic-level responses given subordinate NP in different contexts") +
+  facet_grid(~target) 
+
+```
+
+``` {r lmer}
+library(lmerTest)
+df.subject <- d.main.respCat %>% filter(condition == "predicative")
+
+d.subj.fit <- glmer(response_num ~ reference + (0 + reference||item),
+                    data = d.main.pred.respCat,
+                    family = "binomial")
+summary(d.subj.fit)
+```
